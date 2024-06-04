@@ -8,6 +8,12 @@ window.onload = function() {
         theme: "monokai"
     });
     editor.getWrapperElement().style.fontSize = "20px";
+
+    function changeFontSize() {
+        var fontSize = document.getElementById("font-size").value + "px";
+        editor.getWrapperElement().style.fontSize = fontSize;
+        editor.refresh();
+    }
     
     const textEncoder = new TextEncoderStream();
     const textDecoder = new TextDecoderStream();
