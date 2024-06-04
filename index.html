@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./static/index.css?ver=240604">
@@ -10,17 +10,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/python/python.min.js"></script>
     <script src="./static/index.js?ver=240604"></script>
     <title>examplepage</title>
-  </head>
-  <body>
-   <button id="connect">Connect</button>
-   <button id="send">Send</button>
-   <div>
-     <div style="float:left;width:45vw">
-       <textarea id="python-code" name="code"></textarea>
-     </div>
-     <div style="float:right;width:45vw">
-       <div id="output"></span>
-     </div> 
-   </div>   
-  </body>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="controls">
+            <button id="connect">기기연결</button>
+            <button id="send">코드전송</button>
+        </div>
+        <div class="container">
+            <div class="editor-container">
+                <textarea id="python-code" name="code"></textarea>
+            </div>
+            <div class="output-container">
+                <div id="output"></div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
