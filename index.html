@@ -39,10 +39,16 @@
   const writer = textEncoder.writable.getWriter();
   const command = document.getElementById('command');
   const result = document.getElementById('result');
+  const send = document.getElementById('send');
 
-  document.getElementById('send').addEventListener('click', async () => {
+  send.addEventListener('click', async () => {
     console.log(editor.getValue())
     await writer.write(editor.getValue());
+    send.disabled = true;
+
+    setTimeout(()=> {
+       send.disabled = false;
+    }, 3000;
   });
   
   document.getElementById('connect').addEventListener('click', async () => {
