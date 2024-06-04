@@ -52,6 +52,12 @@ button:hover {
     gap: 20px;
 }
 
+.CodeMirror {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
 .editor-container, .output-container {
     flex: 1;
     display: flex;
