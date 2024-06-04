@@ -44,6 +44,10 @@ button:hover {
     font-weight: bold;
 }
 
+#font-size-container label {
+    margin-right: 10px;
+}
+
 .container {
     display: flex;
     width: 100%;
