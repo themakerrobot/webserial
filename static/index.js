@@ -34,7 +34,6 @@ window.onload = function() {
     });
     
     document.getElementById('connect').addEventListener('click', async () => {
-    
     /*
      const filters = [
       { usbVendorId: 0x2341, usbProductId: 0x0043 },
@@ -42,29 +41,38 @@ window.onload = function() {
     ];
     const port = await navigator.serial.requestPort({ filters });
     */
-    const port = await navigator.serial.requestPort();      
+    const port = await navigator.serial.requestPort();
     const { productId, vendorId } = port.getInfo();
-    console.log(productId, vendorId);
-    
-    // Wait for the serial port to open.
-    await port.open({ baudRate: 115200 });
+    console.log('Machine:', productId, vendorId);
+
+    await port.open({ baudRate: 1000000  });
     const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
     const writableStreamClosed = textEncoder.readable.pipeTo(port.writable);
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) {
-        // 나중에 시리얼 포트가 닫힐 수 있도록 해준다.
-        reader.releaseLock();
-        break;
-      }
     
-      if (value) {
-        document.getElementById("output").innerText = value;
-        console.log(value);
+    try {
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) {
+          // 스트림이 끝났을 때
+          console.log("Serial port closed");
+          break;
+        }
+        // 받은 데이터 처리
+        if (value) {
+          output.innerText += value;
+          output.scrollTop = output.scrollHeight;
+          console.log("Received:", value);
+        }
       }
-    }
-    });
-    
-    if ("serial" in navigator) alert("Your browser supports Web Serial API!");
-    else document.getElementById("output").innerText = alert("Your browser does not support Web Serial API, the latest version of Google Chrome is recommended!");
+    } catch (error) {
+      console.error("Error reading from serial port:", error);
+    } finally {
+      reader.releaseLock();
+      writer.releaseLock();
+      await port.close();
+    }  
+  });
+
+  if ("serial" in navigator) console.log("Your browser supports Web Serial API!");
+  else document.getElementById("output").innerText = alert("Your browser does not support Web Serial API, the latest version of Google Chrome is recommended!");
 }
