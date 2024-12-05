@@ -22,6 +22,8 @@ window.onload = function() {
     const command = document.getElementById('command');
     const result = document.getElementById('result');
     const send = document.getElementById('send');
+    const stop = document.getElementById('stop');
+    const output = document.getElementById("output");
     
     send.addEventListener('click', async () => {
     console.log(editor.getValue())
@@ -33,6 +35,10 @@ window.onload = function() {
     }, 3000);
     });
     
+    stop.addEventListener('click', async () => {
+      await writer.write('###END###');
+      //writer.releaseLock();
+    });
     document.getElementById('connect').addEventListener('click', async () => {
     /*
      const filters = [
